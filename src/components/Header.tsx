@@ -6,67 +6,70 @@ const Header = () => {
 
   const navLinks = [
     { label: 'Home', href: '#home' },
-    { label: 'Services', href: '#services' },
+    { label: 'Events', href: '#services' },
     { label: 'About', href: '#about' },
     { label: 'Gift Cards', href: '#gift-cards' },
     { label: 'Contact', href: '#contact' },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-luxury-gray-light">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <div className="font-luxury text-2xl font-bold text-luxury-gradient">
-            Big Boy Limos
-          </div>
+        <div className="flex items-center justify-center h-20 relative">
+          {/* Mobile Menu Button - Left */}
+          <button
+            className="md:hidden absolute left-0 text-foreground"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
+          {/* Desktop Navigation - Left */}
+          <nav className="hidden md:flex items-center space-x-12 absolute left-0">
+            {navLinks.slice(0, 2).map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-foreground hover:text-luxury-gold transition-colors duration-300 font-elegant font-medium"
+                className="text-foreground hover:text-muted-foreground transition-colors duration-300 font-elegant text-sm tracking-wide"
               >
                 {link.label}
               </a>
             ))}
           </nav>
 
-          {/* Book Now Button */}
-          <div className="hidden md:block">
-            <button className="btn-gold text-sm">
-              Book Now
-            </button>
+          {/* Logo - Center */}
+          <div className="font-luxury text-3xl font-normal tracking-tight text-foreground">
+            Big Boy Limos
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Desktop Navigation - Right */}
+          <nav className="hidden md:flex items-center space-x-12 absolute right-0">
+            {navLinks.slice(2).map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-foreground hover:text-muted-foreground transition-colors duration-300 font-elegant text-sm tracking-wide"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-luxury-gray-light">
-            <nav className="flex flex-col space-y-4">
+          <div className="md:hidden py-6 border-t border-border">
+            <nav className="flex flex-col items-center space-y-6">
               {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-foreground hover:text-luxury-gold transition-colors duration-300 font-elegant"
+                  className="text-foreground hover:text-muted-foreground transition-colors duration-300 font-elegant text-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
                 </a>
               ))}
-              <button className="btn-gold text-sm mt-4 w-full">
-                Book Now
-              </button>
             </nav>
           </div>
         )}

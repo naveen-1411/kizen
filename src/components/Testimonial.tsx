@@ -1,19 +1,15 @@
-import { Quote } from 'lucide-react';
-
 const Testimonial = () => {
   return (
-    <section className="py-16 bg-luxury-black text-luxury-white">
+    <section className="py-20 bg-foreground text-background">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <Quote className="w-16 h-16 text-luxury-gold mx-auto mb-8 opacity-80" />
-          
-          <blockquote className="font-luxury text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed mb-8">
+          <blockquote className="font-luxury text-2xl md:text-3xl lg:text-4xl font-normal leading-relaxed mb-12 italic">
             "Everything went smooth! I appreciate you."
           </blockquote>
           
-          <div className="border-t border-luxury-gold/30 pt-6">
-            <cite className="font-elegant text-lg text-luxury-gold not-italic">
-              — Dallas Client
+          <div>
+            <cite className="font-elegant text-lg text-background/80 not-italic tracking-wide">
+              — Jay, Dallas, TX
             </cite>
           </div>
         </div>
