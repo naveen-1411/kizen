@@ -1,66 +1,113 @@
-const FeaturedServices = () => {
-  const services = [
-    {
-      title: 'DFW Airport',
-      price: '$85.00+',
-      subtitle: 'First-class service starts at your front door.',
-      description: 'Skip the apps and long waits — enjoy a smooth, on-time ride to DFW with bottled water, a clean car, and no surprises.'
-    },
-    {
-      title: 'Love Field Airport',
-      price: '$75.00+',
-      subtitle: 'The private airport ride you\'ll actually love.',
-      description: 'Travel light and lux with a reliable ride to or from Love Field — always on time, always personal.'
-    },
-    {
-      title: 'Hourly Private Driver',
-      price: '$90.00+',
-      subtitle: 'Your time, your driver — No limits.',
-      description: 'Enjoy personalized service by the hour with a dedicated driver who stays on standby for wherever the day (or night) takes you. *Flexible for multiple stops.'
-    }
-  ];
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { 
+  UserGroupIcon, 
+  BuildingOfficeIcon, 
+  HeartIcon, 
+  GlobeAltIcon, 
+  ArrowRightIcon 
+} from '@heroicons/react/24/outline'
 
+const services = [
+  {
+    name: 'Airport Transfers',
+    description: 'Start and end your journey in comfort with our reliable airport transfer service. Our chauffeurs track your flight and ensure timely pickups and drop-offs.',
+    icon: GlobeAltIcon,
+    href: '/services#airport',
+  },
+  {
+    name: 'Corporate Travel',
+    description: 'Make a lasting impression with our executive transportation services. Perfect for business meetings, conferences, and client entertainment.',
+    icon: BuildingOfficeIcon,
+    href: '/services#corporate',
+  },
+  {
+    name: 'Wedding Transportation',
+    description: 'Arrive in style on your special day. Our luxury vehicles add elegance to your wedding and ensure you and your guests travel in comfort.',
+    icon: HeartIcon,
+    href: '/services#wedding',
+  },
+  {
+    name: 'Special Events',
+    description: 'From proms to anniversaries, our chauffeurs ensure you arrive at your special event in luxury and style, making every moment memorable.',
+    icon: UserGroupIcon,
+    href: '/services#events',
+  },
+  {
+    name: 'Wine Tours',
+    description: 'Explore local vineyards and wineries with our curated wine tour packages. Enjoy the scenery while we handle the transportation.',
+    icon: GlobeAltIcon,
+    href: '/services#wine-tours',
+  },
+]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 },
+  },
+}
+
+export default function FeaturedServices() {
   return (
-    <section id="services" className="py-20 bg-white">
-      <div className="container mx-auto px-4 lg:px-8 max-w-4xl">
-        <div className="text-center mb-16">
-          <h2 className="font-luxury text-4xl md:text-5xl font-normal mb-8 text-foreground">
-            Featured Services
-          </h2>
-          
-          <button className="border border-foreground text-foreground font-elegant text-sm px-12 py-3 rounded-full hover:bg-foreground hover:text-white transition-all duration-300 tracking-wide mb-16">
-            Book
-          </button>
+    <section className="section bg-white" id="services">
+      <div className="container">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="section-title">Our Premium Services</h2>
+          <p className="section-subtitle">
+            Experience the pinnacle of luxury transportation with our comprehensive range of services designed to meet your every need.
+          </p>
         </div>
-
-        <div className="space-y-16">
-          {services.map((service, index) => (
-            <div key={index} className="flex flex-col md:flex-row md:items-start md:justify-between border-b border-border pb-12 last:border-b-0">
-              <div className="md:flex-1 mb-6 md:mb-0">
-                <h3 className="font-luxury text-3xl md:text-4xl font-normal mb-4 text-foreground">
-                  {service.title}
-                </h3>
-                
-                <h4 className="font-luxury text-lg md:text-xl font-normal mb-4 text-foreground italic">
-                  {service.subtitle}
-                </h4>
-                
-                <p className="text-muted-foreground font-elegant leading-relaxed max-w-2xl">
-                  {service.description}
-                </p>
-              </div>
-              
-              <div className="md:ml-8 md:text-right">
-                <div className="text-2xl md:text-3xl font-bold text-foreground font-elegant">
-                  {service.price}
+        
+        <motion.div 
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          {services.map((service) => (
+            <motion.div 
+              key={service.name}
+              className="luxury-card group hover:border-gold-500 hover:border"
+              variants={itemVariants}
+            >
+              <div className="luxury-card-body">
+                <div className="h-12 w-12 bg-gold-100 text-gold-600 rounded-md flex items-center justify-center mb-4 group-hover:bg-gold-500 group-hover:text-white transition-colors duration-300">
+                  <service.icon className="h-6 w-6" aria-hidden="true" />
                 </div>
+                <h3 className="luxury-card-title">{service.name}</h3>
+                <p className="luxury-card-text">{service.description}</p>
+                <Link 
+                  to={service.href} 
+                  className="inline-flex items-center text-gold-600 font-medium hover:text-gold-800 transition-colors"
+                >
+                  Learn more
+                  <ArrowRightIcon className="ml-1 h-4 w-4" />
+                </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
+        </motion.div>
+        
+        <div className="mt-12 text-center">
+          <Link to="/services" className="btn btn-primary">
+            View All Services
+          </Link>
         </div>
       </div>
     </section>
-  );
-};
-
-export default FeaturedServices;
+  )
+}
